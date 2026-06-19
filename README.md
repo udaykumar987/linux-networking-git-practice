@@ -1,1 +1,5 @@
-# linux-networking-git-practiceGit Practice
+# linux-networking-git-practice
+
+Git Practice
+
+Stash Practice - Day 3
