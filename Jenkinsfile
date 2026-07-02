@@ -1,25 +1,39 @@
 pipeline {
+
     agent any
 
     stages {
 
         stage('Checkout') {
             steps {
-                echo 'Fetching code'
+                git 'https://github.com/udaykumar987/linux-networking-git-practice.git'
             }
         }
 
-        stage('List Files') {
+        stage('Build Docker Image') {
             steps {
-                sh 'pwd'
-                sh 'ls -lrt'
+                sh 'docker build -t linux-practice:v2 .'
             }
         }
 
-        stage('Read README') {
+        stage('Remove Old Container') {
             steps {
-                sh 'cat README.md'
+                sh '''
+                docker rm -f linux-container || true
+                '''
             }
         }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                docker run -d \
+                --name linux-container \
+                -p 8081:80 \
+                linux-practice:v2
+                '''
+            }
+        }
+
     }
 }
