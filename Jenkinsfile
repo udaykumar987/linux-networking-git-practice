@@ -1,14 +1,7 @@
 pipeline {
-
     agent any
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/udaykumar987/linux-networking-git-practice.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
@@ -18,9 +11,7 @@ pipeline {
 
         stage('Remove Old Container') {
             steps {
-                sh '''
-                docker rm -f linux-container || true
-                '''
+                sh 'docker rm -f linux-container || true'
             }
         }
 
@@ -34,6 +25,5 @@ pipeline {
                 '''
             }
         }
-
     }
 }
